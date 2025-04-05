@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-f9371209ec35fc0c7ede.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "grid_path_searcher",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "demo_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-demo_node-c3e2bdfd0c892efd595e.json",
+					"name" : "demo_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "grid_path_searcher_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-grid_path_searcher_uninstall-2675a1281872477f766d.json",
+					"name" : "grid_path_searcher_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "random_complex::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-random_complex-61f380b6ad7f549de581.json",
+					"name" : "random_complex",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-0f08a1e79df91f8c39d5.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/caesar/motion_planning_ws/src/hw_1/build/grid_path_searcher",
+		"source" : "/home/caesar/motion_planning_ws/src/hw_1/src/grid_path_searcher"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
