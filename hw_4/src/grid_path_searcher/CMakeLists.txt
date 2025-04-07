@@ -17,10 +17,25 @@ include_directories(
 )
 
 # demo node
+# add_executable(demo_node
+#   # src/astar_path_finder.cpp
+#   # src/jps3d_neib.cpp
+#   # src/jps_path_finder.cpp
+#   src/demo_node.cpp
+#   src/demo_node_main.cpp
+# )
+
+# ament_target_dependencies(demo_node
+#   rclcpp
+#   nav_msgs
+#   visualization_msgs
+#   pcl_ros
+#   pcl_conversions
+# )
+
+# demo2 node
 add_executable(demo_node
-  src/astar_path_finder.cpp
-  src/jps3d_neib.cpp
-  src/jps_path_finder.cpp
+  src/hw_tool.cpp
   src/demo_node.cpp
   src/demo_node_main.cpp
 )
@@ -32,22 +47,7 @@ ament_target_dependencies(demo_node
   pcl_ros
   pcl_conversions
 )
-
-# demo2 node
-add_executable(demo2_node
-  src/hw_tool.cpp
-  src/demo2_node.cpp
-  src/demo2_node_main.cpp
-)
-
-ament_target_dependencies(demo2_node
-  rclcpp
-  nav_msgs
-  visualization_msgs
-  pcl_ros
-  pcl_conversions
-)
-target_link_libraries(demo2_node ${CERES_LIBRARIES})
+target_link_libraries(demo_node ${CERES_LIBRARIES})
 
 # random_complex
 add_executable(random_complex src/random_complex_generator.cpp)
@@ -61,7 +61,7 @@ ament_target_dependencies(random_complex
   pcl_conversions
 )
 
-install(TARGETS demo_node demo2_node random_complex
+install(TARGETS demo_node random_complex
   DESTINATION lib/${PROJECT_NAME}
 )
 

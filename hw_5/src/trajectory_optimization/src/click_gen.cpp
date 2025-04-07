@@ -91,7 +91,7 @@ void minimumJerkTrajGen(
     const Eigen::VectorXd &timeAllocationVector,
     // Outputs:
     Eigen::MatrixX3d &coefficientMatrix)
-{
+{   // TODO : Implement this function
     // coefficientMatrix is a matrix with 6*piece num rows and 3 columes
     // As for a polynomial c0+c1*t+c2*t^2+c3*t^3+c4*t^4+c5*t^5,
     // each 6*3 sub-block of coefficientMatrix is
@@ -107,39 +107,8 @@ void minimumJerkTrajGen(
     // in this function
 
     // ------------------------ Put your solution below ------------------------
-    // F
-    Eigen::MatrixXd F = getF();
-    // M
-    Eigen::MatrixXd M = Eigen::MatrixXd::Zero(6*pieceNum, 6*pieceNum);
-    auto F0 = M.block(0,0,3,6);
-    F0.row(0) = getPloyVector(0, 0);
-    F0.row(1) = getPloyVector(0, 1);
-    F0.row(2) = getPloyVector(0, 2);
-    for (int i = 0; i < pieceNum - 1; i++) {
-       double T = timeAllocationVector(i);
-       M.block(6 * i + 3, 6 * i, 6, 6) = getE(T);
-       M.block(6 * i + 3, 6 * i + 6, 6, 6) = F;
-    }
-    auto Em = M.block(6 * (pieceNum-1) + 3, 6 * (pieceNum-1), 3, 6);
-    Em.row(0) = getPloyVector(timeAllocationVector(pieceNum-1), 0);
-    Em.row(1) = getPloyVector(timeAllocationVector(pieceNum-1), 1);
-    Em.row(2) = getPloyVector(timeAllocationVector(pieceNum-1), 2);
-    // std::cout << "M:\n" << M << std::endl;
-    // b
-    Eigen::MatrixX3d b = Eigen::MatrixX3d::Zero(6*pieceNum, 3);
-    b.row(0) = initialPos;
-    b.row(1) = initialVel;
-    b.row(2) = initialAcc;
-    for (int i = 0; i < pieceNum - 1; i++) {
-        b.row(3+i*6) = intermediatePositions.col(i);
-    }
-    b.row(3 + (pieceNum - 1) * 6) = terminalPos;
-    b.row(3 + (pieceNum - 1) * 6 + 1) = terminalVel;
-    b.row(3 + (pieceNum - 1) * 6 + 2) = terminalAcc;
-    // std::cout << "b:\n" << b << std::endl;
-    // M*c = b, c = M^(-1) * b;
-    coefficientMatrix = M.inverse() * b;
-    //std::cout << "coefficientMatrix:\n" << coefficientMatrix << std::endl;
+
+    
     // ------------------------ Put your solution above ------------------------
 }
 

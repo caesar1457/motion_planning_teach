@@ -18,8 +18,7 @@
 #include "visualization_msgs/msg/marker_array.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 
-#include "grid_path_searcher/astar_path_finder.hpp"
-#include "grid_path_searcher/jps_path_finder.hpp"
+#include "grid_path_searcher/hw_tool.hpp"
 
 namespace grid_path_searcher
 {
@@ -34,40 +33,41 @@ private:
   void waypoints_callback(const nav_msgs::msg::Path::SharedPtr msg);
   void pointcloud_callBack(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
-  void vis_grid_path(std::vector<Eigen::Vector3d> nodes, bool is_use_jps);
-  void vis_visited_node(std::vector<Eigen::Vector3d> nodes );
-  void find_path(const Eigen::Vector3d start_pt, const Eigen::Vector3d target_pt, bool use_jps);
+  void vis_traLibrary(TrajectoryStatePtr *** tralibrary);
+
+  void trajectory_library(const Eigen::Vector3d start_pt, const Eigen::Vector3d start_velocity, const Eigen::Vector3d target_pt);
 
 private:
   // pub
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr grid_map_vis_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr grid_path_vis_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visited_nodes_vis_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr closed_nodes_vis_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr open_nodes_vis_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr close_nodes_sequence_vis_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr path_vis_pub_;
   // sub
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr map_sub_;
   rclcpp::Subscription<nav_msgs::msg::Path>::SharedPtr pts_sub_;
 
   // simulation param from launch file
-  double _resolution, _inv_resolution, _cloud_margin;
-  double _x_size, _y_size, _z_size;    
+  double _resolution{0.2}, _inv_resolution, _cloud_margin{0.0};
+  double _x_size{50.0};
+  double _y_size{50.0};
+  double _z_size{5.0};    
 
   bool _has_map{false};
 
-  Eigen::Vector3d _start_pt;
+  Eigen::Vector3d _start_pt{0,0,0};
+  Eigen::Vector3d _start_velocity{0,0,0};
   Eigen::Vector3d _map_lower;
   Eigen::Vector3d _map_upper;
   int _max_x_id;
   int _max_y_id;
   int _max_z_id;
-  // search algo
-  // std::shared_ptr<GridPathFinder> _path_finder;
-  std::shared_ptr<AstarPathFinder> astar_path_finder_;
-  std::shared_ptr<JPSPathFinder> jps_path_finder_;
-  bool use_jps_{false};
-  std::string test_case_{"astar"};
+  // Integral parameter
+  double _max_input_acc{1.0};
+  int _discretize_step{2};
+  double _time_interval{1.25};
+  int _time_step{50};
+  std::shared_ptr<Homeworktool> homework_tool_;
+  TrajectoryStatePtr*** tralibrary_;
+  // std::string test_case_{"astar"};
 };
 
 } // namespace grid_path_searcher
