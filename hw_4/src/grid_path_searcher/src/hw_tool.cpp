@@ -154,34 +154,6 @@ double Homeworktool::OptimalBVP(Eigen::Vector3d _start_position,Eigen::Vector3d 
     double x = 10;
 
     // Build the problem.
-    ceres::Problem problem;
-    ceres::CostFunction* cost_function = MyFunc::Create(_start_position, _start_velocity, _target_position, target_velocity);
-    problem.AddResidualBlock(cost_function, nullptr, &x);
-    problem.SetParameterLowerBound(&x, 0, 0.001);
 
-    // Run the solver!
-    ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_QR;
-    options.minimizer_progress_to_stdout = false;
-    ceres::Solver::Summary summary;
-    ceres::Solve(options, &problem, &summary);
-    
-    optimal_cost = getCost(_start_position, _start_velocity, _target_position, target_velocity, x);
-    // std::cout << summary.BriefReport() << "\n";
-    // std::cout << "x :10 -> " << x << ", min cost: "<< optimal_cost <<"\n";
-
-    // some codes for validation
-    // double a, cost;
-    // double min_a = 0, min_cost = 10000;
-    // for(int i = 0; i<1000; i++) {
-    //     auto a = i * 0.1;
-    //     auto cost = getCost(_start_position, _start_velocity, _target_position, target_velocity, a);
-    //     if (cost < min_cost) {
-    //         min_a = a;
-    //         min_cost = cost;
-    //         //std::cout << "optimal x" << x << " (cost:" << optimal_cost << "), find another : "<<  i * 0.1 << " (cost:" << tmp << ")\n";
-    //     }
-    // }
-    // std::cout << "optimal x" << x << " (cost:" << optimal_cost << "),  loop soulution : "<<  min_a << " (cost:" << min_cost << ")" << std::endl;
     return optimal_cost;
 }

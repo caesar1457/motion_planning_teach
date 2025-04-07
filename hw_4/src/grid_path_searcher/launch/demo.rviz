@@ -7,8 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /AllMap1/Autocompute Value Bounds1
-        - /ClosedNodes1/Namespaces1
-        - /gridPath1/Namespaces1
       Splitter Ratio: 0.6090225577354431
     Tree Height: 433
   - Class: rviz_common/Selection
@@ -90,71 +88,18 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Class: rviz_default_plugins/Marker
-      Enabled: false
-      Name: ClosedNodes
-      Namespaces:
-        {}
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /closed_nodes_vis
-      Value: false
-    - Class: rviz_default_plugins/Marker
-      Enabled: false
-      Name: closeNodesSequence
-      Namespaces:
-        {}
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /close_nodes_sequence_vis
-      Value: false
-    - Class: rviz_default_plugins/Marker
-      Enabled: false
-      Name: OpenNodes
-      Namespaces:
-        {}
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /open_nodes_vis
-      Value: false
-    - Class: rviz_default_plugins/Marker
+    - Class: rviz_default_plugins/MarkerArray
       Enabled: true
       Name: gridPath
       Namespaces:
-        {}
+        demo_node/tralibrary: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
-        Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /grid_path_vis
+        Value: /path_vis
       Value: true
-    - Class: rviz_default_plugins/Marker
-      Enabled: false
-      Name: Marker
-      Namespaces:
-        {}
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /debug_nodes_vis
-      Value: false
   Enabled: true
   Global Options:
     Background Color: 255; 255; 127
@@ -180,7 +125,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 40.396121978759766
+      Distance: 7.3403449058532715
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -195,10 +140,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7047972083091736
+      Pitch: 0.8847971558570862
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.407599449157715
+      Yaw: 0.9726007580757141
     Saved:
       - Class: rviz_default_plugins/Orbit
         Distance: 79.24484252929688

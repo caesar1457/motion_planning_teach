@@ -26,29 +26,27 @@ def generate_launch_description():
     pkg_grid_path_searcher = get_package_share_directory('grid_path_searcher')
     rviz2_config = os.path.join(pkg_grid_path_searcher, "launch", "demo.rviz")
     # arguments
-    test_case = LaunchConfiguration('test_case')
     map_size_x = LaunchConfiguration('map_size_x')
     map_size_y = LaunchConfiguration('map_size_y')
     map_size_z = LaunchConfiguration('map_size_z')
     start_x = LaunchConfiguration('start_x')
     start_y = LaunchConfiguration('start_y')
     start_z = LaunchConfiguration('start_z')
+    start_vx = LaunchConfiguration('start_vx')
+    start_vy = LaunchConfiguration('start_vy')
+    start_vz = LaunchConfiguration('start_vz')
     # declare the launch arguments
-    declare_test_case = DeclareLaunchArgument(
-        'test_case',
-        default_value= 'astar',
-        description=('test_case'))
     declare_map_size_x = DeclareLaunchArgument(
         'map_size_x',
-        default_value= '20.0',
+        default_value= '10.0',
         description=('map_size_x'))
     declare_map_size_y = DeclareLaunchArgument(
         'map_size_y',
-        default_value= '20.0',
+        default_value= '10.0',
         description=('map_size_y'))
     declare_map_size_z = DeclareLaunchArgument(
         'map_size_z',
-        default_value= '10.0',
+        default_value= '2.0',
         description=('map_size_z'))
     declare_start_x = DeclareLaunchArgument(
         'start_x',
@@ -60,23 +58,37 @@ def generate_launch_description():
         description='start_y')
     declare_start_z = DeclareLaunchArgument(
         'start_z',
-        default_value= '1.0',
+        default_value= '0.0',
         description='start_z')
+    declare_start_vx = DeclareLaunchArgument(
+        'start_vx',
+        default_value= '0.2',
+        description='start_vx')
+    declare_start_vy = DeclareLaunchArgument(
+        'start_vy',
+        default_value= '0.2',
+        description='start_vy')
+    declare_start_vz = DeclareLaunchArgument(
+        'start_vz',
+        default_value= '0.0',
+        description='start_vz')
     # nodes
     demo_node = Node(
         package='grid_path_searcher',
         executable='demo_node',
         name='demo_node',
         parameters=[
-            {'test_case': test_case,
-             'map.margin': 0.,
+            {'map.margin': 0.,
              'map.resolution': 0.2,
              'map.x_size': map_size_x,
              'map.y_size': map_size_y,
              'map.z_size': map_size_z,
              'planning.start_x': start_x,
              'planning.start_y': start_y,
-             'planning.start_z': start_z}],
+             'planning.start_z': start_z,
+             'planning.start_vx': start_vx,
+             'planning.start_vy': start_vy,
+             'planning.start_vz': start_vz}],
         remappings=[
                 ('map', 'global_map')],
         output='screen'
@@ -119,13 +131,15 @@ def generate_launch_description():
         arguments=["-d", rviz2_config]
     )
     ld = LaunchDescription()
-    ld.add_action(declare_test_case)
     ld.add_action(declare_map_size_x)
     ld.add_action(declare_map_size_y)
     ld.add_action(declare_map_size_z)
     ld.add_action(declare_start_x)
     ld.add_action(declare_start_y)
     ld.add_action(declare_start_z)
+    ld.add_action(declare_start_vx)
+    ld.add_action(declare_start_vy)
+    ld.add_action(declare_start_vz)
     ld.add_action(demo_node)
     ld.add_action(random_complex)
     ld.add_action(waypoint_generator)

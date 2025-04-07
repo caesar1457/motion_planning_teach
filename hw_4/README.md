@@ -1,90 +1,128 @@
-# 第4章作业
+# 第四章 Local Lattice Planner
 
-## 1.作业说明
+本作业实现了一种基于线性模型的归为规划算法，经由分装实现了 Forward Integration 和 OBVP (Optimal Boundary Value Problem)，用于领域轨迹生成和最优路径选择。
 
-* 运行环境：ROS2 Humble
-* 代码详见`src`目录，修改较大，将原始代码移植到ROS2平台中，主要修改的代码在`grid_path_searcher`包中的`hw_tool.hpp/cpp`, `demo2_node.hpp/cpp` 中。
+---
 
-主要实现内容：
+## 学习目标
 
-* 在`demo2_node.cpp` 中，实现了前向运动积分。
-* 在`hw_tool.cpp`中，基于ceres solver实现了`OBVP`问题的数值近似求解。
+- 熟悉线性模型下的 Forward Integration 进程
+- 理解 OBVP (边界值问题)的构建和解法
+- 学会利用路径跟踪成本选择最优路径
 
-## 2.作业运行结果
+---
 
-运行命令
+## 项目结构
+
+```
+hw_4/
+├── build/
+├── install/
+├── log/
+├── src/
+│   └── grid_path_searcher/
+│       ├── include/homework_tool/
+│       │   └── hw_tool.hpp              # 作业工具函数声明
+│       ├── launch/
+│       │   └── demo.launch.py
+│       ├── src/
+│       │   ├── demo_node_main.cpp
+│       │   ├── demo_node.cpp           # STEP 1: Forward Integration 实现位
+│       │   ├── hw_tool.cpp              # STEP 2: OBVP 解析进行位
+│       │   └── random_complex_generator.cpp
+├── map_generator/
+├── occ_grid/
+├── path_finder/
+├── rviz_plugins/
+├── waypoint_generator/
+├── CMakeLists.txt
+├── package.xml
+├── initial.png                 # 启动后状态
+├── result.png                  # 完成作业效果
+├── README.md
+└── README.pdf
+```
+
+---
+
+##  程序构建 & 启动
 
 ```bash
-ros2 launch grid_path_searcher demo2.launch.py
+cd ~/motion_planning_ws
+colcon build 
+source install/setup.bash
+
+ros2 launch grid_path_searcher demo.launch.py
 ```
 
-随机在地图上选点，得到rviz可视化运行结果如下图：
+启动成功后，使用 "3D Nav Goal" 设置目标点，RViz 界面如下：
 
-![](result.png)
+![initial](./initial.png)
 
+---
 
+## 编程任务说明
 
-## 3.OBVP求解
+依据代码注释，作业分为两步：
 
-详见`hw_tool.cpp`中
+### STEP 1 - Forward Integration
 
-定义优化问题：
+文件：`src/grid_path_searcher/src/demo_node.cpp`
 
-```c++
-struct MyFunc {
-  MyFunc(Eigen::Vector3d &p0, Eigen::Vector3d &pf, Eigen::Vector3d &v0, Eigen::Vector3d &vf)
-      : p0_(p0), pf_(pf), v0_(v0), vf_(vf) {}
+请根据给定的移动方程，实现 Forward Integration ：
 
-  template <typename T>
-  bool operator()(const T* const x,
-                  T* residuals) const {
-    auto t = x[0];
-    auto t2 = t*t;
-    auto t3 = t2*t;
-    auto dp = pf_ - v0_ * t - p0_;
-    auto dv = vf_ - v0_;
-    auto alpha = -12.0 / t3 * dp + 6.0 / t2 * dv;
-    auto beta =  6.0 / t2 *  dp - 2.0 / t * dv;
-    auto J = t;
-    for(int i = 0; i<3; i++) {
-        J += alpha(i)*alpha(i)*t3 + alpha(i)*beta(i)*t2 + beta(i)*beta(i)*t;
-    }
-    residuals[0] = J;
-    return true;
-  }
-
-   // Factory to hide the construction of the CostFunction object from
-   // the client code.
-  static ceres::CostFunction* Create(Eigen::Vector3d &p0, Eigen::Vector3d &pf, Eigen::Vector3d &v0, Eigen::Vector3d &vf) {
-    return (new ceres::AutoDiffCostFunction<MyFunc, 1, 1>(new MyFunc(p0, pf, v0, vf)));
-  }
-
-  Eigen::Vector3d p0_;
-  Eigen::Vector3d pf_;
-  Eigen::Vector3d v0_;
-  Eigen::Vector3d vf_;
-};
-
+```cpp
+// pos = pos + vel * delta_time + 0.5 * acc_input * delta_time * delta_time;
+// vel = vel + acc_input * delta_time;
 ```
 
-求解优化问题：
+根据移动路径与障碍梯级，判断轨迹是否发生碰撞。
 
-```c++
-    // Build the problem.
-    ceres::Problem problem;
-    ceres::CostFunction* cost_function = MyFunc::Create(_start_position, _start_velocity, _target_position, target_velocity);
-    problem.AddResidualBlock(cost_function, nullptr, &x);
-    problem.SetParameterLowerBound(&x, 0, 0.001);
+### STEP 2 - OBVP (Optimal BVP)
 
-    // Run the solver!
-    ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_QR;
-    options.minimizer_progress_to_stdout = false;
-    ceres::Solver::Summary summary;
-    ceres::Solve(options, &problem, &summary);
-```
+文件：`src/grid_path_searcher/src/hw_tool.cpp`
 
-补充说明：
+请完成 `Homeworktool::OptimalBVP(...)` 函数，根据 PDF 算法模型：
 
-* 我们的问题是最小化代价$J=\int^T_0(1+a^2_x+a^2_y+a^2_z)dt$，从`J`的定义中可以发现$J>0$，因此等价于最小化$J^2$ ，因此可以利用Ceres进行优化求解，同时设定$T>0.001$，避免得到无意义的负值。
+- 定义辅助函数 H
+- 进行 costate 分析
+- 求解最优控制量 u*
+- 求解最优状态轨迹 x*
+- 计算成本 J(T)，并选择最优 T
+
+推荐使用 Ceres 对 T 进行数值优化，返回路径成本。
+
+---
+
+## 作业完成效果
+
+完成 Forward Integration 和 OBVP 后，系统将自动选择最优路径并输出：
+
+- 无障碍路径
+- 最优跟踪成本
+- RViz 中显示轨迹如下：
+
+![result](./result.png)
+
+---
+
+## 👥 Authors and Maintainers
+
+_This README was written by the current maintainer based on the original project developed by the authors below._
+
+<hr/>
+
+<p align="right" style="line-height: 1.6; font-size: 14px;">
+  <strong>Original Authors:</strong><br>
+  Fei Gao &lt;ustfeigao@gmail.com&gt;<br>
+  Kyle Yeh &lt;kyle_yeh@163.com&gt;<br>
+  Yehong Kai &lt;yehongkai@todo.todo&gt;<br>
+  Shaojie Shen &lt;eeshaojie@todo.todo&gt;<br><br>
+
+  <strong>Past Maintainer:</strong><br>
+  Zhenpeng Ge &lt;<a href="mailto:zhenpeng.ge@qq.com">zhenpeng.ge@qq.com</a>&gt;<br><br>
+
+  <strong>Current Maintainer:</strong><br>
+  Zhiye Zhao &lt;<a href="mailto:caesar1457@gmail.com">caesar1457@gmail.com</a>&gt; (2025–)
+</p>
 

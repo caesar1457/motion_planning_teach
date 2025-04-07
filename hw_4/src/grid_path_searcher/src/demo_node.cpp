@@ -220,8 +220,7 @@ void DemoNode::trajectory_library(const Eigen::Vector3d start_pt, const Eigen::V
 
 
                     */
-                    pos = pos + vel * delta_time + 0.5 * acc_input * delta_time * delta_time;
-                    vel = vel + acc_input * delta_time;
+
                     Position.push_back(pos);
                     Velocity.push_back(vel);
                     double coord_x = pos(0);

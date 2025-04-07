@@ -111,10 +111,10 @@ This README was written by the current maintainer based on the original project 
 <p align="right" style="line-height: 2.0; font-size: 14px;">
   <strong>Original Authors:</strong><br>
   Zhepei Wang &lt;wangzhepei@live.com&gt;<br>
-  ji &lt;jlji@zju.edu.cn&gt;<br>
-  fgaoaa &lt;ustfeigao@gmail.com&gt;<br>
-  kyleYeh &lt;kyle_yeh@163.com&gt;<br>
-  yehongkai &lt;yehongkai@todo.todo&gt;<br>
+  Ji &lt;jlji@zju.edu.cn&gt;<br>
+  Fei Gao &lt;ustfeigao@gmail.com&gt;<br>
+  Kyle Yeh &lt;kyle_yeh@163.com&gt;<br>
+  Yehong Kai &lt;yehongkai@todo.todo&gt;<br>
   Shaojie Shen &lt;eeshaojie@todo.todo&gt;<br><br>
 
   <strong>Past Maintainer:</strong><br>
