@@ -88,7 +88,7 @@ colcon build
 source install/setup.bash
 ```
 成功启动后，RViz 将加载地图及起点状态如下：
-![initial](./initial.png)
+![initial](./img/initial.png)
 
 ### 启动测试命令
 
@@ -99,8 +99,8 @@ source install/setup.bash
 ros2 launch grid_path_searcher demo.launch.py test_case:=astar
 ```
 下图展示了 A* 算法的基本路径搜索效果，路径较平滑但搜索范围较广：
-<!-- ![astar](./astar.png) -->
-![astar](./astar1.png)
+<!-- ![astar](./img/astar.png) -->
+![astar](./img/astar1.png)
 
 ```bash
 # 启发式函数对比测试
@@ -108,7 +108,7 @@ ros2 launch grid_path_searcher demo.launch.py test_case:=astar_heuristic_functio
 ```
 使用不同启发式函数（Manhattan、Euclidean、Diagonal）会影响搜索方向与节点展开效率。下图为其中一种启发式函数效果：
 <!-- ![astar_heuristic_function](./astar_heuristic_function.png) -->
-![astar_heuristic_function](./astar_heuristic_function1.png)
+![astar_heuristic_function](./img/astar_heuristic_function1.png)
 
 ```bash
 # Tie Breaker 测试
@@ -116,7 +116,7 @@ ros2 launch grid_path_searcher demo.launch.py test_case:=astar_tie_breaker
 ```
 Tie Breaker 在代价相同节点间引入偏好，有助于路径集中向目标方向，如图所示：
 <!-- ![astar_tie_breaker](./astar_tie_breaker.png) -->
-![astar_tie_breaker](./astar_tie_breaker1.png)
+![astar_tie_breaker](./img/astar_tie_breaker1.png)
 
 ```bash
 # JPS 路径搜索测试（选做）
@@ -124,11 +124,11 @@ ros2 launch grid_path_searcher demo.launch.py test_case:=astar_jps
 ```
 Jump Point Search 在空旷环境中能跳过大量无效节点，生成路径更加紧凑直接：
 <!-- ![astar_jps](./astar_jps.png) -->
-![astar_jps](./astar_jps1.png)
+![astar_jps](./img/astar_jps1.png)
 
 ### 效果图
 以下为基础 A* 算法路径搜索的另一视角图，可见节点扩展密集，但路径稳定：
-![astar](./astar.png)
+![astar](./img/astar.png)
 ### 程序内部逻辑
 
 路径搜索流程由 `demo_node.cpp` 中的回调与路径搜索函数共同构成：
