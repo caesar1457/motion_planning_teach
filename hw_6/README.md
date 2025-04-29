@@ -112,13 +112,10 @@ This README was written by the current maintainer based on the original project 
   <strong>Original Authors:</strong><br>
   Zhepei Wang &lt;wangzhepei@live.com&gt;<br>
   Ji &lt;jlji@zju.edu.cn&gt;<br>
-  Fei Gao &lt;ustfeigao@gmail.com&gt;<br>
+  Fei Gao &lt;fgaoaa@zju.edu.cn&gt;<br>
   Kyle Yeh &lt;kyle_yeh@163.com&gt;<br>
   Yehong Kai &lt;yehongkai@todo.todo&gt;<br>
-  Shaojie Shen &lt;eeshaojie@todo.todo&gt;<br><br>
 
-  <strong>Past Maintainer:</strong><br>
-  Zhenpeng Ge &lt;<a href="mailto:zhenpeng.ge@qq.com">zhenpeng.ge@qq.com</a>&gt;<br><br>
 
   <strong>Current Maintainer:</strong><br>
   Zhiye Zhao &lt;<a href="mailto:caesar1457@gmail.com">caesar1457@gmail.com</a>&gt; (2025–)

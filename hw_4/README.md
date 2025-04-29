@@ -1,6 +1,6 @@
 # 第四章 Local Lattice Planner
 
-本作业实现了一种基于线性模型的归为规划算法，经由分装实现了 Forward Integration 和 OBVP (Optimal Boundary Value Problem)，用于领域轨迹生成和最优路径选择。
+本作业实现了一种基于线性模型的轨迹规划算法，经由分装实现了 Forward Integration 和 OBVP (Optimal Boundary Value Problem)，用于领域轨迹生成和最优路径选择。
 
 ---
 
@@ -114,13 +114,10 @@ _This README was written by the current maintainer based on the original project
 
 <p align="right" style="line-height: 1.6; font-size: 14px;">
   <strong>Original Authors:</strong><br>
-  Fei Gao &lt;ustfeigao@gmail.com&gt;<br>
+  Fei Gao &lt;fgaoaa@zju.edu.cn&gt;<br>
   Kyle Yeh &lt;kyle_yeh@163.com&gt;<br>
   Yehong Kai &lt;yehongkai@todo.todo&gt;<br>
-  Shaojie Shen &lt;eeshaojie@todo.todo&gt;<br><br>
 
-  <strong>Past Maintainer:</strong><br>
-  Zhenpeng Ge &lt;<a href="mailto:zhenpeng.ge@qq.com">zhenpeng.ge@qq.com</a>&gt;<br><br>
 
   <strong>Current Maintainer:</strong><br>
   Zhiye Zhao &lt;<a href="mailto:caesar1457@gmail.com">caesar1457@gmail.com</a>&gt; (2025–)

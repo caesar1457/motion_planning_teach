@@ -142,8 +142,6 @@ _This README was written by the current maintainer based on the original project
   Kyle Yeh &lt;kyle_yeh@163.com&gt;<br>
   Yehong Kai &lt;yehongkai@todo.todo&gt;<br><br>
 
-  <strong>Past Maintainer:</strong><br>
-  Zhenpeng Ge &lt;zhenpeng.ge@qq.com&gt;<br><br>
 
   <strong>Current Maintainer:</strong><br>
   Zhiye Zhao &lt;caesar1457@gmail.com&gt; (2025–)

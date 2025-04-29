@@ -1,6 +1,14 @@
 # 第一章 路径搜索模块（基于 ROS 2）
 
-本作业已全面迁移至 ROS 2 Humble 环境，支持标准 `colcon` 构建和 `launch.py` 启动方式，实现了基于网格地图结构的路径搜索，并通过 RViz 进行可视化。
+本作业已全面迁移至 ROS 2 Humble 环境，支持标准 `colcon` 构建和 `launch.py` 启动方式，本章作为路径规划系列作业的起点，重点在于配置 ROS 2 项目环境，包括：
+
+- 创建并初始化 ROS 2 工作空间；
+
+- 将代码导入正确位置；
+
+- 完成构建流程；
+
+- 启动并验证 RViz 可视化界面正常运行。
 
 ---
 
@@ -90,8 +98,6 @@ ros2 launch grid_path_searcher demo.launch.py
 
 - **启动后效果**：
 
-  ![](./Initial.png)
-
 
 
   ![](./result.png)
@@ -123,11 +129,10 @@ _This README was written by the current maintainer based on the original project
 
 <p align="right">
   <strong>Original Authors:</strong><br>
-  Fei Gao &lt;ustfeigao@gmail.com&gt;<br><br>
-  Shaojie Shen &lt;eeshaojie@todo.todo&gt;<br><br>
+  Fei Gao &lt;fgaoaa@zju.edu.cn&gt;<br><br>
 
-  <strong>Past Maintainer:</strong><br>
-  Zhenpeng Ge &lt;zhenpeng.ge@qq.com&gt;<br><br>
+
+
 
   <strong>Current Maintainer:</strong><br>
   Zhiye Zhao &lt;caesar1457@gmail.com&gt; (2025–)
